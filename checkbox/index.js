@@ -38,6 +38,7 @@ const bodyArr = [ // A torzs adatait tarolo tomb
 /** @type {HTMLDivElement} a javascriptes tartalom divje */
 const jsDiv = document.createElement("div") //letrehoz egy divet a javasctript tartalmanak
 jsDiv.id = "jssection" // megadja a div azonositojat
+jsDiv.classList.add("hide") //rarakja a hide osztalyt
 document.body.appendChild(jsDiv) // hozzafuzi az oldal torzsehez
 
 /** @type {HTMLTableElement} a javascriptes tablazat */
@@ -216,4 +217,24 @@ jsDoubleButton.addEventListener("click", function(){ // kattintas eseten rahivja
     /** @type {HTMLTableSectionElement} a torzs amihez csatolom az uj sort */
     bodyArr.push(testSimpleRow) //belerakja a tablazatba az uj sort
     createTbody(bodyArr, tbodyJs) //fuggveny meghivasa a normal gombra
+})
+/** @type {HTMLInputElement} a checkbox input mezo */
+const inputCheckBox = document.getElementById("tableselector") //elkeri azonosito alapjan
+inputCheckBox.addEventListener("change", function(e){ //esemenykezelo akkor lep akcioba ha valtozatunk a checkbox allapotan
+    /** @type {HTMLInputElement}  checkbox valtozoja*/
+    const checkTarget = e.target // esemeny targetje
+    /** @type {HTMLDivElement} a javascript tablazat kerete*/
+    const jsSecDiv = document.getElementById("jssection") // div lekerese es eltarolasa azonosito alapjan
+    /** @type {HTMLDivElement} a html tablazat kerete*/
+    const htmlSecDiv = document.getElementById("htmlsection") // div lekerese es eltarolasa azonosito alapjan
+
+    if(checkTarget.checked) { //megnezi h be van e pipalva a checkbox
+        htmlSecDiv.classList.remove("hide") //leszedi a hide osztalyt
+        jsSecDiv.classList.add("hide") //rarakja a hide osztalyt
+    }
+    else{ //ha nincs bepipalva a checkbox
+        htmlSecDiv.classList.add("hide") //rarakja a hide osztalyt
+        jsSecDiv.classList.remove("hide") //leszedi a hide osztalyt
+    }
+
 })
