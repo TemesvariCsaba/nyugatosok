@@ -38,6 +38,7 @@ const bodyArr = [ // A torzs adatait tarolo tomb
 /** @type {HTMLDivElement} a javascriptes tartalom divje */
 const jsDiv = document.createElement("div") //letrehoz egy divet a javasctript tartalmanak
 jsDiv.id = "jssection" // megadja a div azonositojat
+jsDiv.classList.add("hide") // rarakja a divre a hide osztalyt
 document.body.appendChild(jsDiv) // hozzafuzi az oldal torzsehez
 
 /** @type {HTMLTableElement} a javascriptes tablazat */
@@ -187,7 +188,7 @@ htmlDoubleButton.addEventListener("click", function(){ // kattintas eseten rahiv
 const jsNormalButton = document.createElement("button") //gomb letrehozasa
 jsNormalButton.id = "jsbutton" //megadja az idt a gombnak
 jsNormalButton.innerText = "colspanos sor hozzaadasa" //gomb szovege
-document.body.appendChild(jsNormalButton) //hozzaadja a gombot a torzshoz
+jsDiv.appendChild(jsNormalButton) //hozzaadja a gombot a torzshoz
 jsNormalButton.addEventListener("click", function(){ // kattintas eseten rahivja a gombra az esemenykezelot
     /** @type {BodyArr} uj sor adatait tartalmazo valtozo tipusa */
     const testSimpleRow = { //adatok eltarolasa egy objektumban
@@ -204,7 +205,7 @@ jsNormalButton.addEventListener("click", function(){ // kattintas eseten rahivja
 const jsDoubleButton = document.createElement("button") //gomb letrehozasa
 jsDoubleButton.id = "jsbuttondouble" //megadja az idt a gombnak
 jsDoubleButton.innerText = "dupla fogalmas sor hozzadasa" //gomb szovege
-document.body.appendChild(jsDoubleButton) //hozzaadja a gombot a torzshoz
+jsDiv.appendChild(jsDoubleButton) //hozzaadja a gombot a torzshoz
 jsDoubleButton.addEventListener("click", function(){ // kattintas eseten rahivja a gombra az esemenykezelot
     /** @type {BodyArr} uj sor adatait tartalmazo valtozo tipusa */
     const testSimpleRow = { //adatok eltarolasa egy objektumban
@@ -218,4 +219,23 @@ jsDoubleButton.addEventListener("click", function(){ // kattintas eseten rahivja
     createTbody(bodyArr, tbodyJs) //fuggveny meghivasa a normal gombra
 })
 
+/**@type {HTMLSelectElement} a tableselector azonositoju select*/
 
+const tableSelect = document.getElementById("tableselector") // lekeri a tableselector azonositoju selectet
+tableSelect.addEventListener("change", function(e){ //esemenykezelo akkor lep akcioba ha valtozatunk a select erteken
+    /** @type {HTMLSelectElement} a celpont select aminek az erteket keressuk */
+    const targetSelect = e.target //esemeny celpontja
+    /** @type {HTMLDivElement} a jssection azonositoju div */
+    const jsSecDiv = document.getElementById("jssection") // div lekerese es eltarolasa azonosito alapjan
+      /** @type {HTMLDivElement} a htmlsection azonositoju div */
+    const htmlSecDiv = document.getElementById("htmlsection") // div lekerese es eltarolasa azonosito alapjan
+    if(targetSelect.value == "htmltable"){// ha a target select erteke htmltablere lett allitva
+        htmlSecDiv.classList.remove("hide") //leveszi az azonositoval rendelkezo divrol a hide osztalyt
+        jsSecDiv.classList.add("hide")  // a masikra rarakja a hide osztalyt hogy ne maradjon ott az oldalon
+    }                                  
+    else if(targetSelect.value = "jstable"){ // ha a target select erteke jstablere lett allitva
+        jsSecDiv.classList.remove("hide") // leveszi az azonositoval rendelkezo divrol a hide osztalyt
+        htmlSecDiv.classList.add("hide") // a masikra rarakja a hide osztalyt hogy ne maradjon ott az oldalon
+    }
+    
+})
