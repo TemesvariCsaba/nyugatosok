@@ -35,10 +35,14 @@ const bodyArr = [ // A torzs adatait tarolo tomb
     },
 
 ]
+/** @type {HTMLDivElement} a javascript tablazat divje */
+const jsDiv = document.createElement("div") // letrehozza a divet
+jsDiv.id = "jssection" //beallitja a div azonositojat
+document.body.appendChild(jsDiv) //hozzafuzi az oldal torzsehez
 
 /** @type {HTMLTableElement} a javascriptes tablazat */
 const tableJs = document.createElement("table") //letrehozza a tablazat taget
-document.body.appendChild(tableJs) //hozzafuzi az oldal bodyjahoz
+jsDiv.appendChild(tableJs) //hozzafuzi a divhez
 
 /** @type {HTMLTableSectionElement} a javascriptes tablazat fejlece*/
 const theadJs = document.createElement("thead") //letrehozza a fejec taget
