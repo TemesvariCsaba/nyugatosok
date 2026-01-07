@@ -1,4 +1,4 @@
-/** @typedef {{author: string, title1: string, concepts1: string, title2?:string concepts2?: string}} BodyArr adattombF*/
+/** @typedef {{author: string, title1: string, concepts1: string, title2?:string, concepts2?: string}} BodyArr adattombF*/
 
 /** @type {string[]} A fejlec tomb */
 const headerArr = ["Szerző", "Mű", "Fogalmak"] //fejlec adatait taralmazo tomb
@@ -97,7 +97,7 @@ function createBodyCell( cellContent, parentTr){ //fuggveny egy string tipusu  e
  * @returns {void} nincs visszateresi erteke
  */
 function createTbody(contentArr, parentTbody){ //ket parameteres fuggveny egy adattomb es egy tablazat torzs
-    tbodyJs.innerHTML = "" //kiuriti a torzs tartalmat
+    parentTbody.innerHTML = "" //kiuriti a torzs tartalmat
     for(const element in contentArr){ // ciklus ami bejarja a tombot
         /** @type {HTMLTableRowElement} a sor*/
         const trOneConcept = document.createElement("tr") //sor letrehozasa 
