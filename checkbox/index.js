@@ -31,7 +31,7 @@ const bodyArr = [ // A torzs adatait tarolo tomb
         author: "Móricz Zsigmond", //szerzo tulajdonsaga az otodik sorban
         title1: "Tragédia", //mu tulajdonsaga az otodik sorban
         concepts1: "novella", //Fogalmak egyik tulajdonsaga az otodik sorban
-        concepts2: "dzentri" //Fogalmak masik tulajdonsaga az otodik sorban
+        concepts2: "dzsentri" //Fogalmak masik tulajdonsaga az otodik sorban
     },
 
 ]
@@ -220,15 +220,26 @@ jsDoubleButton.addEventListener("click", function(){ // kattintas eseten rahivja
 })
 /** @type {HTMLInputElement} a checkbox input mezo */
 const inputCheckBox = document.getElementById("tableselector") //elkeri azonosito alapjan
-inputCheckBox.addEventListener("change", function(e){ //esemenykezelo akkor lep akcioba ha valtozatunk a checkbox allapotan
+checkBoxOnLoad(inputCheckBox) //kiirja a tablazatot az alapjan hogy betolteskor milyen allapotban van a checkbox
+
+    inputCheckBox.addEventListener("change", function(e){ //esemenykezelo akkor lep akcioba ha valtozatunk a checkbox allapotan
     /** @type {HTMLInputElement}  checkbox valtozoja*/
     const checkTarget = e.target // esemeny targetje
+    checkBoxOnLoad(checkTarget) //valtoztat a kiirason ha valtozott a checkbox allapota 
+    })
+
+/**
+ *  checkboxot megnezi hogy be van e pipalva es az alapjan jeleniti meg a tablazatokat az oldalon
+ * @param {HTMLInputElement} check //checkbox
+ * @returns {void} //nincs visszateresi erteke
+ */
+function checkBoxOnLoad(check){ //fuggveny egy checkbox  parameterrel
     /** @type {HTMLDivElement} a javascript tablazat kerete*/
     const jsSecDiv = document.getElementById("jssection") // div lekerese es eltarolasa azonosito alapjan
     /** @type {HTMLDivElement} a html tablazat kerete*/
     const htmlSecDiv = document.getElementById("htmlsection") // div lekerese es eltarolasa azonosito alapjan
 
-    if(checkTarget.checked) { //megnezi h be van e pipalva a checkbox
+    if(check.checked) { //megnezi h be van e pipalva a checkbox
         htmlSecDiv.classList.remove("hide") //leszedi a hide osztalyt
         jsSecDiv.classList.add("hide") //rarakja a hide osztalyt
     }
@@ -236,5 +247,5 @@ inputCheckBox.addEventListener("change", function(e){ //esemenykezelo akkor lep 
         htmlSecDiv.classList.add("hide") //rarakja a hide osztalyt
         jsSecDiv.classList.remove("hide") //leszedi a hide osztalyt
     }
+}
 
-})
