@@ -38,6 +38,7 @@ const bodyArr = [ // A torzs adatait tarolo tomb
 /** @type {HTMLDivElement} a javascript tablazat divje */
 const jsDiv = document.createElement("div") // letrehozza a divet
 jsDiv.id = "jssection" //beallitja a div azonositojat
+jsDiv.classList.add("hide") //beallitja ra a hide osztalyt
 document.body.appendChild(jsDiv) //hozzafuzi az oldal torzsehez
 
 /** @type {HTMLTableElement} a javascriptes tablazat */
@@ -186,7 +187,7 @@ htmlDoubleButton.addEventListener("click", function(){ // kattintas eseten rahiv
 const jsNormalButton = document.createElement("button") //gomb letrehozasa
 jsNormalButton.id = "jsbutton" //megadja az idt a gombnak
 jsNormalButton.innerText = "colspanos sor hozzaadasa" //gomb szovege
-document.body.appendChild(jsNormalButton) //hozzaadja a gombot a torzshoz
+jsDiv.appendChild(jsNormalButton) //hozzaadja a gombot a torzshoz
 jsNormalButton.addEventListener("click", function(){ // kattintas eseten rahivja a gombra az esemenykezelot
     /** @type {BodyArr} uj sor adatait tartalmazo valtozo tipusa */
     const testSimpleRow = { //adatok eltarolasa egy objektumban
@@ -203,7 +204,7 @@ jsNormalButton.addEventListener("click", function(){ // kattintas eseten rahivja
 const jsDoubleButton = document.createElement("button") //gomb letrehozasa
 jsDoubleButton.id = "jsbuttondouble" //megadja az idt a gombnak
 jsDoubleButton.innerText = "dupla fogalmas sor hozzadasa" //gomb szovege
-document.body.appendChild(jsDoubleButton) //hozzaadja a gombot a torzshoz
+jsDiv.appendChild(jsDoubleButton) //hozzaadja a gombot a torzshoz
 jsDoubleButton.addEventListener("click", function(){ // kattintas eseten rahivja a gombra az esemenykezelot
     /** @type {BodyArr} uj sor adatait tartalmazo valtozo tipusa */
     const testSimpleRow = { //adatok eltarolasa egy objektumban
@@ -216,5 +217,33 @@ jsDoubleButton.addEventListener("click", function(){ // kattintas eseten rahivja
     bodyArr.push(testSimpleRow) //belerakja a tablazatba az uj sort
     createTbody(bodyArr, tbodyJs) //fuggveny meghivasa a normal gombra
 })
+/** @type {HTMLInputElement} checkbox tipus */
+const checkBox = document.getElementById("tableselector") //lekeri a checkboxot azonosito alapjan
+checkBoxOnLoad(checkBox) //kiirja a tablazatot az alapjan hogy betolteskor milyen allapotban van a checkbox
+checkBox.addEventListener("change", function(e){ ////esemenykezelo akkor lep akcioba ha valtozatunk a checkbox allapotan
+    /** @type {HTMLInputElement}  checkbox valtozoja*/
+    const checkbTarget = e.target // esemeny targetje
+    checkBoxOnLoad(checkbTarget) //valtoztat a kiirason ha valtozott a checkbox allapota 
+})
 
+/**
+ *  checkboxot megnezi hogy be van e pipalva es az alapjan jeleniti meg a tablazatokat az oldalon
+ * @param {HTMLInputElement} check //checkbox
+ * @returns {void} //nincs visszateresi erteke
+ */
+function checkBoxOnLoad(check){ //fuggveny egy checkbox  parameterrel
+    /** @type {HTMLDivElement} a javascript tablazat kerete*/
+    const jsSecDiv = document.getElementById("jssection") // div lekerese es eltarolasa azonosito alapjan
+    /** @type {HTMLDivElement} a html tablazat kerete*/
+    const htmlSecDiv = document.getElementById("htmlsection") // div lekerese es eltarolasa azonosito alapjan
+
+    if(check.checked) { //megnezi h be van e pipalva a checkbox
+        htmlSecDiv.classList.remove("hide") //leszedi a hide osztalyt
+        jsSecDiv.classList.add("hide") //rarakja a hide osztalyt
+    }
+    else{ //ha nincs bepipalva a checkbox
+        htmlSecDiv.classList.add("hide") //rarakja a hide osztalyt
+        jsSecDiv.classList.remove("hide") //leszedi a hide osztalyt
+    }
+}
 
