@@ -89,6 +89,12 @@ jsForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat ho
     /** @type {boolean} a valtozo ami vizsgalja h ki van e toltve a mezo */
     let validField = true //beallitja az alapertelmezett erteket igazra
 
+     /**@type {NodeList} erroros diveket tartalmazzo lista */
+    const emptyDivList = targetSubmit.querySelectorAll(".error") //eltarolja az erroros diveket egy valtozoban
+    for(const emptyDiv of emptyDivList){ //vegigjarja a listat
+        emptyDiv.innerText = "" //kitorli a hibauzenetet
+    }
+
     if(szerzoInp.value =="") { //ha a mezo ures
         /** @type {HTMLDivElement} input parentje*/
         const szerzoParent = szerzoInp.parentElement //eltarolja a parentjet (div)
@@ -161,6 +167,12 @@ htmlForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat 
 
       /** @type {boolean} a valtozo ami vizsgalja h ki van e toltve a mezo */
     let validField = true //beallitja az alapertelmezett erteket igazra
+
+    /**@type {NodeList} erroros diveket tartalmazzo lista */
+    const emptyDivList = targetSubmit.querySelectorAll(".error") //eltarolja az erroros diveket egy valtozoban
+    for(const emptyDiv of emptyDivList){ //vegigjarja a listat
+        emptyDiv.innerText = "" //kitorli a hibauzenetet
+    }
 
     if(szerzoInp.value =="") { //ha a mezo ures
         /** @type {HTMLDivElement} input parentje*/
