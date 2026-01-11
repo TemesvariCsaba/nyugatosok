@@ -159,6 +159,35 @@ htmlForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat 
     /** @type {HTMLInputElement} az input */
     const fogalmakMasikInp = targetSubmit.querySelector("#otodik") //elkeri id alapjan az input mezot
 
+      /** @type {boolean} a valtozo ami vizsgalja h ki van e toltve a mezo */
+    let validField = true //beallitja az alapertelmezett erteket igazra
+
+    if(szerzoInp.value =="") { //ha a mezo ures
+        /** @type {HTMLDivElement} input parentje*/
+        const szerzoParent = szerzoInp.parentElement //eltarolja a parentjet (div)
+        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
+        const emptyDiv = szerzoParent.querySelector(".error") //lekeri a div span mezojet
+        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
+        validField = false //etrek hamisra allitasa
+    }
+    if(muInp.value =="") { //ha a mezo ures
+        /** @type {HTMLDivElement} input parentje*/
+        const muParent = muInp.parentElement //eltarolja a parentjet (div)
+        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
+        const emptyDiv = muParent.querySelector(".error") //lekeri a div span mezojet
+        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
+        validField = false //etrek hamisra allitasa
+    }
+    if(fogalmakInp.value =="") { //ha a mezo ures
+        /** @type {HTMLDivElement} input parentje*/
+        const fogalmakParent = fogalmakInp.parentElement //eltarolja a parentjet (div)
+        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
+        const emptyDiv = fogalmakParent.querySelector(".error") //lekeri a div span mezojet
+        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
+        validField = false //etrek hamisra allitasa
+    }
+    if(validField){ //ha nem ures az elso harom mezo
+    
 
     /** @type {string} szerzo szovege */
     const szerzoValue = szerzoInp.value //erteke az input mezonek
@@ -185,5 +214,5 @@ htmlForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat 
     const tbodyHtml = document.getElementById("htmltbody") //lekeri a htmles tablazat torzset id alapjan
     generateHtmlAddRow(valueObj, tbodyHtml) //kiirja a frissitett tablazatot
     targetSubmit.reset() //gomb megnyomasa utan kiuriti a mezoket 
-    
+} 
 })
