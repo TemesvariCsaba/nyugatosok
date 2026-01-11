@@ -100,7 +100,7 @@ jsForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat ho
     valueObj.title1 = muValue //mu tulajdonsag ertekenek beallitasa
     valueObj.concepts1 = fogalmakValue //fogalmak tulajdonsag ertekenek beallitasa
 
-    if(valueObj.concepts2){ //ha definialva van masik fogalom
+    if(fogalmakMasikValue){ //ha definialva van masik fogalom
         valueObj.concepts2 = fogalmakMasikValue //beallitja a fogalmak2 tulajdonsag erteket
     }
     /** @type {HTMLTableSectionElement} a tablazat torzse */
@@ -110,3 +110,46 @@ jsForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat ho
     targetSubmit.reset() //gomb megnyomasa utan kiuriti a mezoket 
     
 }) 
+/** @type {HTMLFormElement} a htmles form */
+const htmlForm = document.getElementById("htmlform") //elkeri a htmles formot id alapjan
+htmlForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat hozzaadasa a formhoz a gombra nyomaskor
+     e.preventDefault() //megakadalyozza az alapveto muvelet vegrehajtasat
+    /** @type {HTMLFormElement} a submit target tipusa */
+    const targetSubmit = e.target //eltarolja a submit targetjet egy valtozoban
+    /** @type {HTMLInputElement} az input */
+    const szerzoInp = targetSubmit.querySelector("#elso") //elkeri id alapjan az input mezot
+    /** @type {HTMLInputElement} az input */
+    const muInp = targetSubmit.querySelector("#masodik") //elkeri id alapjan az input mezot
+    /** @type {HTMLInputElement} az input */
+    const fogalmakInp = targetSubmit.querySelector("#harmadik") //elkeri id alapjan az input mezot
+    /** @type {HTMLInputElement} az input */
+    const muMasikInp = targetSubmit.querySelector("#negyedik") //elkeri id alapjan az input mezot
+    /** @type {HTMLInputElement} az input */
+    const fogalmakMasikInp = targetSubmit.querySelector("#otodik") //elkeri id alapjan az input mezot
+    /** @type {string} szerzo szovege */
+    const szerzoValue = szerzoInp.value //erteke az input mezonek
+     /** @type {string} mu szovege */
+    const muValue = muInp.value //erteke az input mezonek
+     /** @type {string} fogalmak szovege */
+    const fogalmakValue = fogalmakInp.value //erteke az input mezonek
+    /** @type {string} mu2 szovege */
+    const muMasikValue = muMasikInp.value //erteke az input mezonek
+     /** @type {string} fogalmak2 szovege */
+    const fogalmakMasikValue = fogalmakMasikInp.value //erteke az input mezonek
+
+    /**@type {BodyArr} objektum adatai */
+    const valueObj = {} //ures objektum 
+    valueObj.author = szerzoValue //szerzo tulajdonsag ertekenek beallitasa
+    valueObj.title1 = muValue //mu tulajdonsag ertekenek beallitasa
+    valueObj.concepts1 = fogalmakValue //fogalmak tulajdonsag ertekenek beallitasa
+
+    if(muMasikValue && fogalmakMasikValue){ //ha definialva van masik fogalom es mu
+        valueObj.concepts2 = fogalmakMasikValue //beallitja a fogalmak2 tulajdonsag erteket
+        valueObj.title2 = muMasikValue //beallitja a mu2 tulajdonsag erteket
+    }
+    /** @type {HTMLTableSectionElement} a tablazat torzse */
+    const tbodyHtml = document.getElementById("htmltbody") //lekeri a htmles tablazat torzset id alapjan
+    generateHtmlAddRow(valueObj, tbodyHtml) //kiirja a frissitett tablazatot
+    targetSubmit.reset() //gomb megnyomasa utan kiuriti a mezoket 
+    
+})
