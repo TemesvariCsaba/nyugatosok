@@ -195,3 +195,52 @@ function generateFullForm(sectionDiv){ // fuggveny egy div parameterrel
 
     return jsForm //visszater a formal
 }
+
+/**
+ * megvizsgalja hogy a kotelezo mezok ki vannak e toltve ha nem akkor kiir egy hibauzenetet
+ * @param {HTMLInputElement} inputField input mezo amit vizsgal
+ * @returns {boolean} visszateresi erteke egy logikai ertek
+ */
+function validateField(inputField){ //fuggveny egy input parameterrel
+      /** @type {boolean} a valtozo ami vizsgalja h ki van e toltve a mezo */
+    let validField = true //beallitja az alapertelmezett erteket igazra
+
+    if(inputField.value =="") { //ha a mezo ures
+        /** @type {HTMLDivElement} input parentje*/
+        const inputFieldParent = inputField.parentElement //eltarolja a parentjet (div)
+        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
+        const emptyDiv = inputFieldParent.querySelector(".error") //lekeri a div span mezojet
+        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
+        validField = false //etrek hamisra allitasa
+    }
+    return validField //visszater a validField valtozo ertekevel
+}
+/**
+ * egybevonja a mezok validalasat es eltunteti a hibauzenetet
+ * @param {HTMLInputElement} firstInput elso input mezo a szerzo
+ * @param {HTMLInputElement} secondInput masodik input mezo a mu
+ * @param {HTMLInputElement} thirdInput harmadik input mezo a fogalmak1
+ * @param {HTMLFormElement} parentForm a form amihez tartoznak (js v html)
+ * @returns {boolean} logikai ertekkel ter vissza
+ */
+function validateAllFields(firstInput, secondInput, thirdInput, parentForm){ //fuggveny 3 input es egy form parameterrel
+       /** @type {boolean} a valtozo ami vizsgalja h ki van e toltve a mezo */
+    let validField = true //beallitja az alapertelmezett erteket igazra
+
+    /**@type {NodeList} erroros diveket tartalmazzo lista */
+    const emptyDivList = parentForm.querySelectorAll(".error") //eltarolja az erroros diveket egy valtozoban
+    for(const emptyDiv of emptyDivList){ //vegigjarja a listat
+        emptyDiv.innerText = "" //kitorli a hibauzenetet
+    }
+
+    if(!validateField(firstInput)){ //ha a mezo nem felel meg az elvarasoknak
+        validField = false //hamisra allitja a validField erteket
+    }
+     if(!validateField(secondInput)){ //ha a mezo nem felel meg az elvarasoknak
+        validField = false //hamisra allitja a validField erteket
+    }
+     if(!validateField(thirdInput)){ //ha a mezo nem felel meg az elvarasoknak
+        validField = false //hamisra allitja a validField erteket
+    }
+    return validField //visszater a validField valtozo ertekevel
+}
