@@ -97,12 +97,12 @@ function checkBoxOnLoad(check){ //fuggveny egy checkbox  parameterrel
     const htmlSecDiv = document.getElementById("htmlsection") // div lekerese es eltarolasa azonosito alapjan
 
     if(check.checked) { //megnezi h be van e pipalva a checkbox
-        htmlSecDiv.classList.remove("hide") //leszedi a hide osztalyt
-        jsSecDiv.classList.add("hide") //rarakja a hide osztalyt
+        jsSecDiv.classList.remove("hide") //leszedi a hide osztalyt
+        htmlSecDiv.classList.add("hide") //rarakja a hide osztalyt
     }
     else{ //ha nincs bepipalva a checkbox
-        htmlSecDiv.classList.add("hide") //rarakja a hide osztalyt
-        jsSecDiv.classList.remove("hide") //leszedi a hide osztalyt
+        jsSecDiv.classList.add("hide") //rarakja a hide osztalyt
+        htmlSecDiv.classList.remove("hide") //leszedi a hide osztalyt
     }
 }
 
