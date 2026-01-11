@@ -146,3 +146,52 @@ function generateInput(labelFor, labelContent, inputName, parentForm ){ //fuggve
     formDiv.appendChild(spanForm) //hozzafuzi a divhez
     generateBr(formDiv) //berak egy sortorest
 }
+
+/**
+ *  letrehozza a teljes formot
+ * @param {HTMLDivElement} sectionDiv div amihez hozzafuzi
+ * @returns {void} nincs visszateresi ertek
+ */
+function generateFullForm(sectionDiv){ // fuggveny egy div parameterrel
+    
+    /** @type {{labelfor: string, content: string, name: string }[]} a tomb tartalma */
+    const formArr = [ // az form tulajdonsagait taralmazo tomb
+        {
+            labelfor: "elso", //label mezo for tulajdonsaga egyben az input idje
+            content: "Szerző", //label mezo tartalom tulajdonsaga
+            name: "szerzo" //input mezo name tulajdonsaga
+        },
+        {
+            labelfor: "masodik",//label mezo for tulajdonsaga egyben az input idje
+            content: "Mű", //label mezo tartalom tulajdonsaga
+            name: "mu" //input mezo name tulajdonsaga
+        },
+        {
+            labelfor: "harmadik",//label mezo for tulajdonsaga egyben az input idje
+            content: "Fogalmak", //label mezo tartalom tulajdonsaga
+            name: "fogalmak1" //input mezo name tulajdonsaga
+        },
+        {
+            labelfor: "negyedik",//label mezo for tulajdonsaga egyben az input idje
+            content: "Másik fogalmak", //label mezo tartalom tulajdonsaga
+            name: "fogalmak2" //input mezo name tulajdonsaga
+        },
+
+    ]
+
+    /** @type {HTMLFormElement} a form valtozoja*/
+    const jsForm = document.createElement("form") // letrehozza a formot
+    jsForm.id = "jsform" //megadja a formnak az id-t
+    sectionDiv.appendChild(jsForm) //hozzafuzi az oldal torzsehez
+
+    for(const element of formArr){ //vegigjarja a tombot
+    generateInput(element.labelfor, element.content, element.name, jsForm) //kiirja a mezoket 
+    }
+
+
+
+    /** @type {HTMLButtonElement} a hozzaadas gomb */
+    const buttonForm = document.createElement("button") //letrehozza a gombot
+    buttonForm.innerText = "Hozzáadás" //beallitja a szoveget
+    jsForm.appendChild(buttonForm) //hozzafuzi a formhoz
+}
