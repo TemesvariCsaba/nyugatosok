@@ -150,7 +150,7 @@ function generateInput(labelFor, labelContent, inputName, parentForm ){ //fuggve
 /**
  *  letrehozza a teljes formot
  * @param {HTMLDivElement} sectionDiv div amihez hozzafuzi
- * @returns {void} nincs visszateresi ertek
+ * @returns {HTMLFormElement} //egy form a visszateresi erteke
  */
 function generateFullForm(sectionDiv){ // fuggveny egy div parameterrel
     
@@ -188,10 +188,10 @@ function generateFullForm(sectionDiv){ // fuggveny egy div parameterrel
     generateInput(element.labelfor, element.content, element.name, jsForm) //kiirja a mezoket 
     }
 
-
-
     /** @type {HTMLButtonElement} a hozzaadas gomb */
     const buttonForm = document.createElement("button") //letrehozza a gombot
     buttonForm.innerText = "Hozzáadás" //beallitja a szoveget
     jsForm.appendChild(buttonForm) //hozzafuzi a formhoz
+
+    return jsForm //visszater a formal
 }

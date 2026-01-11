@@ -50,6 +50,7 @@ tableJs.appendChild(theadJs) //hozzafuzi a tablazathoz
 
 /** @type {HTMLTableSectionElement} a javascriptes tablazat torzse */
 const tbodyJs = document.createElement("tbody") //letrehozza a tablazat torzsenek a taget
+tbodyJs.id = "jstbody" //megadja a tbody idjet 
 tableJs.appendChild(tbodyJs) //hozzafuzi a tablazathoz
 
 /** @type {HTMLTableRowElement} globalis sor valtozo */
@@ -68,4 +69,44 @@ checkBox.addEventListener("change", function(e){ ////esemenykezelo akkor lep akc
     checkBoxOnLoad(checkbTarget) //valtoztat a kiirason ha valtozott a checkbox allapota 
 })
 
-generateFullForm(jsDiv) //kiirja a formot
+/** @type {HTMLFormElement} a form*/
+const jsForm = generateFullForm(jsDiv) //beleteszi a formot egy valtozoba
+
+jsForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat hozzaadasa a formhoz a gombra nyomaskor
+    e.preventDefault() //megakadalyozza az alapveto muvelet vegrehajtasat
+
+    /** @type {HTMLFormElement} a submit target tipusa */
+    const targetSubmit = e.target //eltarolja a submit targetjet egy valtozoban
+    /** @type {HTMLInputElement} az input */
+    const szerzoInp = targetSubmit.querySelector("#elso") //elkeri id alapjan az input mezot
+    /** @type {HTMLInputElement} az input */
+    const muInp = targetSubmit.querySelector("#masodik") //elkeri id alapjan az input mezot
+    /** @type {HTMLInputElement} az input */
+    const fogalmakInp = targetSubmit.querySelector("#harmadik") //elkeri id alapjan az input mezot
+    /** @type {HTMLInputElement} az input */
+    const fogalmakMasikInp = targetSubmit.querySelector("#negyedik") //elkeri id alapjan az input mezot
+    /** @type {string} szerzo szovege */
+    const szerzoValue = szerzoInp.value //erteke az input mezonek
+     /** @type {string} mu szovege */
+    const muValue = muInp.value //erteke az input mezonek
+     /** @type {string} fogalmak szovege */
+    const fogalmakValue = fogalmakInp.value //erteke az input mezonek
+     /** @type {string} fogalmak2 szovege */
+    const fogalmakMasikValue = fogalmakMasikInp.value //erteke az input mezonek
+
+    /**@type {BodyArr} objektum adatai */
+    const valueObj = {} //ures objektum 
+    valueObj.author = szerzoValue //szerzo tulajdonsag ertekenek beallitasa
+    valueObj.title1 = muValue //mu tulajdonsag ertekenek beallitasa
+    valueObj.concepts1 = fogalmakValue //fogalmak tulajdonsag ertekenek beallitasa
+
+    if(valueObj.concepts2){ //ha definialva van masik fogalom
+        valueObj.concepts2 = fogalmakMasikValue //beallitja a fogalmak2 tulajdonsag erteket
+    }
+    /** @type {HTMLTableSectionElement} a tablazat torzse */
+    const tbodyJs = document.getElementById("jstbody") //lekeri a javascriptes tablazat torzset id alapjan
+    bodyArr.push(valueObj) //hozzaadjuk a tombhoz a feltoltott objektumot
+    createTbody(bodyArr, tbodyJs) //kiirja a frissitett tablazatot
+    targetSubmit.reset() //gomb megnyomasa utan kiuriti a mezoket 
+    
+}) 
