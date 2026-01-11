@@ -95,29 +95,14 @@ jsForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat ho
         emptyDiv.innerText = "" //kitorli a hibauzenetet
     }
 
-    if(szerzoInp.value =="") { //ha a mezo ures
-        /** @type {HTMLDivElement} input parentje*/
-        const szerzoParent = szerzoInp.parentElement //eltarolja a parentjet (div)
-        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
-        const emptyDiv = szerzoParent.querySelector(".error") //lekeri a div span mezojet
-        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
-        validField = false //etrek hamisra allitasa
+      if(!validateField(szerzoInp)){ //ha a mezo nem felel meg az elvarasoknak
+        validField = false //hamisra allitja a validField erteket
     }
-    if(muInp.value =="") { //ha a mezo ures
-        /** @type {HTMLDivElement} input parentje*/
-        const muParent = muInp.parentElement //eltarolja a parentjet (div)
-        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
-        const emptyDiv = muParent.querySelector(".error") //lekeri a div span mezojet
-        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
-        validField = false //etrek hamisra allitasa
+     if(!validateField(muInp)){ //ha a mezo nem felel meg az elvarasoknak
+        validField = false //hamisra allitja a validField erteket
     }
-    if(fogalmakInp.value =="") { //ha a mezo ures
-        /** @type {HTMLDivElement} input parentje*/
-        const fogalmakParent = fogalmakInp.parentElement //eltarolja a parentjet (div)
-        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
-        const emptyDiv = fogalmakParent.querySelector(".error") //lekeri a div span mezojet
-        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
-        validField = false //etrek hamisra allitasa
+     if(!validateField(fogalmakInp)){ //ha a mezo nem felel meg az elvarasoknak
+        validField = false //hamisra allitja a validField erteket
     }
     if(validField){ //ha nem ures az elso harom mezo
     
@@ -165,7 +150,7 @@ htmlForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat 
     /** @type {HTMLInputElement} az input */
     const fogalmakMasikInp = targetSubmit.querySelector("#otodik") //elkeri id alapjan az input mezot
 
-      /** @type {boolean} a valtozo ami vizsgalja h ki van e toltve a mezo */
+    /** @type {boolean} a valtozo ami vizsgalja h ki van e toltve a mezo */
     let validField = true //beallitja az alapertelmezett erteket igazra
 
     /**@type {NodeList} erroros diveket tartalmazzo lista */
@@ -174,30 +159,17 @@ htmlForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat 
         emptyDiv.innerText = "" //kitorli a hibauzenetet
     }
 
-    if(szerzoInp.value =="") { //ha a mezo ures
-        /** @type {HTMLDivElement} input parentje*/
-        const szerzoParent = szerzoInp.parentElement //eltarolja a parentjet (div)
-        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
-        const emptyDiv = szerzoParent.querySelector(".error") //lekeri a div span mezojet
-        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
-        validField = false //etrek hamisra allitasa
+    if(!validateField(szerzoInp)){ //ha a mezo nem felel meg az elvarasoknak
+        validField = false //hamisra allitja a validField erteket
     }
-    if(muInp.value =="") { //ha a mezo ures
-        /** @type {HTMLDivElement} input parentje*/
-        const muParent = muInp.parentElement //eltarolja a parentjet (div)
-        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
-        const emptyDiv = muParent.querySelector(".error") //lekeri a div span mezojet
-        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
-        validField = false //etrek hamisra allitasa
+     if(!validateField(muInp)){ //ha a mezo nem felel meg az elvarasoknak
+        validField = false //hamisra allitja a validField erteket
     }
-    if(fogalmakInp.value =="") { //ha a mezo ures
-        /** @type {HTMLDivElement} input parentje*/
-        const fogalmakParent = fogalmakInp.parentElement //eltarolja a parentjet (div)
-        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
-        const emptyDiv = fogalmakParent.querySelector(".error") //lekeri a div span mezojet
-        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
-        validField = false //etrek hamisra allitasa
+     if(!validateField(fogalmakInp)){ //ha a mezo nem felel meg az elvarasoknak
+        validField = false //hamisra allitja a validField erteket
     }
+
+
     if(validField){ //ha nem ures az elso harom mezo
     
 
@@ -228,3 +200,22 @@ htmlForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat 
     targetSubmit.reset() //gomb megnyomasa utan kiuriti a mezoket 
 } 
 })
+/**
+ * megvizsgalja hogy a kotelezo mezok ki vannak e toltve ha nem akkor kiir egy hibauzenetet
+ * @param {HTMLInputElement} inputField input mezo amit vizsgal
+ * @returns {boolean} visszateresi erteke egy logikai ertek
+ */
+function validateField(inputField){ //fuggveny egy input parameterrel
+      /** @type {boolean} a valtozo ami vizsgalja h ki van e toltve a mezo */
+    let validField = true //beallitja az alapertelmezett erteket igazra
+
+    if(inputField.value =="") { //ha a mezo ures
+        /** @type {HTMLDivElement} input parentje*/
+        const inputFieldParent = inputField.parentElement //eltarolja a parentjet (div)
+        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
+        const emptyDiv = inputFieldParent.querySelector(".error") //lekeri a div span mezojet
+        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
+        validField = false //etrek hamisra allitasa
+    }
+    return validField //visszater a validField valtozoval
+}
