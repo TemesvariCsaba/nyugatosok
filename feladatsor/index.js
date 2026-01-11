@@ -67,15 +67,40 @@ checkBox.addEventListener("change", function(e){ ////esemenykezelo akkor lep akc
     const checkbTarget = e.target // esemeny targetje
     checkBoxOnLoad(checkbTarget) //valtoztat a kiirason ha valtozott a checkbox allapota 
 })
+/** @type {{labelfor: string, content: string, name: string }[]} a tomb tartalma */
+const formArr = [ // az form tulajdonsagait taralmazo tomb
+    {
+        labelfor: "elso", //label mezo for tulajdonsaga egyben az input idje
+        content: "Szerző", //label mezo tartalom tulajdonsaga
+        name: "szerzo" //input mezo name tulajdonsaga
+    },
+    {
+        labelfor: "masodik",//label mezo for tulajdonsaga egyben az input idje
+        content: "Mű", //label mezo tartalom tulajdonsaga
+        name: "mu" //input mezo name tulajdonsaga
+    },
+    {
+        labelfor: "harmadik",//label mezo for tulajdonsaga egyben az input idje
+        content: "Fogalmak", //label mezo tartalom tulajdonsaga
+        name: "fogalmak1" //input mezo name tulajdonsaga
+    },
+    {
+        labelfor: "negyedik",//label mezo for tulajdonsaga egyben az input idje
+        content: "Másik fogalmak", //label mezo tartalom tulajdonsaga
+        name: "fogalmak2" //input mezo name tulajdonsaga
+    },
+
+]
+
 /** @type {HTMLFormElement} a form valtozoja*/
 const jsForm = document.createElement("form") // letrehozza a formot
 jsForm.id = "jsform" //megadja a formnak az id-t
 jsDiv.appendChild(jsForm) //hozzafuzi az oldal torzsehez
 
-generateLabel("elso", "Szerző", "szerzo", jsForm) //kiirja a szerzo mezot
-generateLabel("masodik", "Mű", "mu", jsForm ) //kiirja a mu mezot
-generateLabel("harmadik", "Fogalmak","fogalmak1", jsForm) //kiirja a fogalmak mezot
-generateLabel("negyedik", "Máasik fogalmak", "fogalmak2", jsForm) //kiirja a fogalmak2 mezot
+for(const element of formArr){ //vegigjarja a tombot
+    generateInput(element.labelfor, element.content, element.name, jsForm) //kiirja a mezoket 
+}
+
 
 
 /** @type {HTMLButtonElement} a hozzaadas gomb */

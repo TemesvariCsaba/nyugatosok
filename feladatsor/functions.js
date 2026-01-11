@@ -6,33 +6,24 @@
  * @param {HTMLTableRowElement} parentTr  //sor amihez fuzi
  * @returns {void} nincs visszateresi erteke
  */
-function generateHeader(headContentArr, parentTr){ //fuggveny egy string tomb tipusu es egy  tr tipusu parameterrel amihez hozzafuzi magat a cellat
-    /** @type {HTMLTableCellElement} fejlec cella*/
-    const thAuthor = document.createElement("th") //letrehozza a cellat
-    thAuthor.innerText = headContentArr[0] //feltolti tartalommal
-    parentTr.appendChild(thAuthor) //hozzafuzi a sorhoz
-
-    /** @type {HTMLTableCellElement} fejlec cella*/
-    const thTitle = document.createElement("th") //letrehozza a cellat
-    thTitle.innerText = headContentArr[1] //feltolti tartalommal
-    parentTr.appendChild(thTitle) //hozzafuzi a sorhoz
-
-    /** @type {HTMLTableCellElement} fejlec cella*/
-    const thConcepts = document.createElement("th") //letrehozza a cellat
-    thConcepts.innerText = headContentArr[2] //feltolti tartalommal
-    thConcepts.colSpan = "2" //oszloposszevonas a fogalmak cellanak
-    parentTr.appendChild(thConcepts) //hozzafuzi a sorhoz
+function generateHeader(headContentArr, parentTr){ //fuggveny egy string tomb tipusu es egy  tr tipusu parameterrel amihez hozzafuzi magat a cella
+    createBodyCell("th", headContentArr[0], parentTr) //kiirja a fejlec elso cellajat
+    createBodyCell("th", headContentArr[1], parentTr) //kiirja a fejlec masodik
+    /** @type {HTMLTableCellElement} fejlec harmadik cellaja*/
+    const thColspan = createBodyCell("th", headContentArr[2], parentTr) //kiirja a fejlec harmadik cellajat
+    thColspan.colSpan = 2 //beallitja az oszloposszevonast
 }
 
 /**
  * letrehozza a torzset
+ * @param {HTMLTableCellElement} cellType //cella tipusa td v th
  * @param {string} cellContent cella tartalma
  * @param {HTMLTableRowElement} parentTr sor amihez fuz
  * @returns {HTMLTableCellElement}  td amivel visszater a fuggveny
  */
-function createBodyCell( cellContent, parentTr){ //fuggveny egy string tipusu  es egy tr tipusu parameterrel
+function createBodyCell( cellType, cellContent, parentTr){ //fuggveny egy cella,  egy string tipusu es egy tr tipusu parameterrel
         /** @type {HTMLTableCellElement} a cella ami letrejon*/
-        const tdCell = document.createElement("td") //letrehoz egy cellat
+        const tdCell = document.createElement(cellType) //letrehoz egy cellat
         tdCell.innerText = cellContent //megtolti tartalommal
         parentTr.appendChild(tdCell) //hozzafuzi a sorhoz
         return tdCell //visszater a cellaval
@@ -50,14 +41,14 @@ function createTbody(contentArr, parentTbody){ //ket parameteres fuggveny egy ad
         /** @type {HTMLTableRowElement} a sor*/
         const trOneConcept = document.createElement("tr") //sor letrehozasa 
         parentTbody.appendChild(trOneConcept) //sort hozzacsatolja a torzshoz
-        createBodyCell(contentArr[element].author, trOneConcept) //letrehozza az adott sor szerzo cellajat
-        createBodyCell(contentArr[element].title1, trOneConcept) //letrehozza az adott sor mu cellajat
+        createBodyCell("td" ,contentArr[element].author, trOneConcept) //letrehozza az adott sor szerzo cellajat
+        createBodyCell("td" ,contentArr[element].title1, trOneConcept) //letrehozza az adott sor mu cellajat
 
         /** @type {HTMLTableCellElement} a fogalmak cella */
-        const tdConcepts = createBodyCell(contentArr[element].concepts1, trOneConcept) //letrehozza az adott sor fogalmak elso cellajat valtozoban van hogy lehessen allitani kesobb az oszloposszevonast
+        const tdConcepts = createBodyCell("td" ,contentArr[element].concepts1, trOneConcept) //letrehozza az adott sor fogalmak elso cellajat valtozoban van hogy lehessen allitani kesobb az oszloposszevonast
 
         if(contentArr[element].concepts2){ //ha definialva van a fogalmak masik cellaja is
-            createBodyCell(contentArr[element].concepts2, trOneConcept) //hozzafuz az adott sorhoz megegy fogalmak cellat
+            createBodyCell("td" ,contentArr[element].concepts2, trOneConcept) //hozzafuz az adott sorhoz megegy fogalmak cellat
         }else{ //ha nincs definialva
             tdConcepts.colSpan = "2" //a fogalmak cella oszloposszevonasat beallitja
         }
@@ -78,9 +69,9 @@ function generateHtmlAddRow(contentArr, parentTbody){//ket parameteres fuggveny 
     parentTbody.appendChild(trAdd) //hozzafuzi a torzshoz
 
     /** @type {HTMLTableCellElement} szerzo cella */
-    const tdAddAuthor= createBodyCell(contentArr.author, trAdd) //szerzo cella letrehozasa
-    createBodyCell(contentArr.title1, trAdd) // uj cella letrehozasa 
-    createBodyCell(contentArr.concepts1, trAdd) // uj cella letrehozasa
+    const tdAddAuthor= createBodyCell("td" ,contentArr.author, trAdd) //szerzo cella letrehozasa
+    createBodyCell("td" ,contentArr.title1, trAdd) // uj cella letrehozasa 
+    createBodyCell("td" ,contentArr.concepts1, trAdd) // uj cella letrehozasa
 
     if(contentArr.title2 && contentArr.concepts2){ //ha definialva van a masik cim es fogalom
         tdAddAuthor.rowSpan = "2" // a szerzo ket sort foglal el
@@ -88,8 +79,8 @@ function generateHtmlAddRow(contentArr, parentTbody){//ket parameteres fuggveny 
         /** @type {HTMLTableRowElement} a sor*/
         const trAddSecRow = document.createElement("tr") // letrehoz egy uj sort
         parentTbody.appendChild(trAddSecRow) //hozzafuzi a torzshoz
-        createBodyCell(contentArr.title2, trAddSecRow) //uj cella letrehozasa
-        createBodyCell(contentArr.concepts2, trAddSecRow) //uj cella letrehozasa
+        createBodyCell("td" ,contentArr.title2, trAddSecRow) //uj cella letrehozasa
+        createBodyCell("td" ,contentArr.concepts2, trAddSecRow) //uj cella letrehozasa
     }
 
 }
@@ -133,7 +124,7 @@ function generateBr(parentDiv){ //fuggveny egy div parameterrel
  * @param {HTMLFormElement} parentForm //form amihez hozzafuzi
  * @returns {void} nincs visszateresi erteke
  */
-function generateLabel(labelFor, labelContent, inputName, parentForm ){ //fuggveny 3 string tipusu es egy form tipusu parameterrel
+function generateInput(labelFor, labelContent, inputName, parentForm ){ //fuggveny 3 string tipusu es egy form tipusu parameterrel
     /** @type {HTMLDivElement} a mezo divje*/
     const formDiv = document.createElement("div") //letrehozza a divet
     parentForm.appendChild(formDiv) //hozzafuzi a formhoz
