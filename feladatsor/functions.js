@@ -114,3 +114,44 @@ function checkBoxOnLoad(check){ //fuggveny egy checkbox  parameterrel
         jsSecDiv.classList.remove("hide") //leszedi a hide osztalyt
     }
 }
+
+/**
+ *  letrehoz egy sortorest
+ * @param {HTMLDivElement} parentDiv a div amihez hozzafuzi a sortorest 
+ * @returns {void} nincs visszateresi erteke
+ */
+function generateBr(parentDiv){ //fuggveny egy div parameterrel
+    /** @type {HTMLBRElement} br tipusa */
+    const brDiv = document.createElement("br") // letrehoz egy sortorest
+    parentDiv.appendChild(brDiv) //hozzafuzi a divhez
+} 
+/**
+ *  letrehozza a form egy mezojet
+ * @param {string} labelFor // a label for tulajdonsaga
+ * @param {string} labelContent // a label szovege
+ * @param {string} inputName // a label name tulajdonsaga
+ * @param {HTMLFormElement} parentForm //form amihez hozzafuzi
+ * @returns {void} nincs visszateresi erteke
+ */
+function generateLabel(labelFor, labelContent, inputName, parentForm ){ //fuggveny 3 string tipusu es egy form tipusu parameterrel
+    /** @type {HTMLDivElement} a mezo divje*/
+    const formDiv = document.createElement("div") //letrehozza a divet
+    parentForm.appendChild(formDiv) //hozzafuzi a formhoz
+    /** @type {HTMLLabelElement} a label */
+    const labelForm = document.createElement("label") //letrehozza a label mezot
+    labelForm.htmlFor = labelFor //beallitja a label for erteket
+    labelForm.innerText = labelContent// Beallitja mi legyen a mezo szovege
+    formDiv.appendChild(labelForm) //hozzafuzi a divhez
+    generateBr(formDiv) //berak egy sortorest
+    /** @type {HTMLInputElement} az input mezo*/
+    const inputForm = document.createElement("input") //letrehozza az input mezot
+    inputForm.type = "text" //text tipust beallitja
+    inputForm.name = inputName //megadja a nev tualdonsag erteket
+    inputForm.id = labelFor // megadja az input idjet 
+    formDiv.appendChild(inputForm) // hozzafuzi a divhez
+    /** @type {HTMLSpanElement} a span*/
+    const spanForm = document.createElement("span") //letrehozza a span mezot
+    spanForm.classList.add("error") //rateszi az error osztalyt
+    formDiv.appendChild(spanForm) //hozzafuzi a divhez
+    generateBr(formDiv) //berak egy sortorest
+}
