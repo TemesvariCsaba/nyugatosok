@@ -85,6 +85,36 @@ jsForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat ho
     const fogalmakInp = targetSubmit.querySelector("#harmadik") //elkeri id alapjan az input mezot
     /** @type {HTMLInputElement} az input */
     const fogalmakMasikInp = targetSubmit.querySelector("#negyedik") //elkeri id alapjan az input mezot
+    
+    /** @type {boolean} a valtozo ami vizsgalja h ki van e toltve a mezo */
+    let validField = true //beallitja az alapertelmezett erteket igazra
+
+    if(szerzoInp.value =="") { //ha a mezo ures
+        /** @type {HTMLDivElement} input parentje*/
+        const szerzoParent = szerzoInp.parentElement //eltarolja a parentjet (div)
+        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
+        const emptyDiv = szerzoParent.querySelector(".error") //lekeri a div span mezojet
+        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
+        validField = false //etrek hamisra allitasa
+    }
+    if(muInp.value =="") { //ha a mezo ures
+        /** @type {HTMLDivElement} input parentje*/
+        const muParent = muInp.parentElement //eltarolja a parentjet (div)
+        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
+        const emptyDiv = muParent.querySelector(".error") //lekeri a div span mezojet
+        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
+        validField = false //etrek hamisra allitasa
+    }
+    if(fogalmakInp.value =="") { //ha a mezo ures
+        /** @type {HTMLDivElement} input parentje*/
+        const fogalmakParent = fogalmakInp.parentElement //eltarolja a parentjet (div)
+        /** @type {HTMLDivElement} error osztalyjal rendelkezo div */
+        const emptyDiv = fogalmakParent.querySelector(".error") //lekeri a div span mezojet
+        emptyDiv.innerText = "Kötelező mező" //hibauzenet beallitasa
+        validField = false //etrek hamisra allitasa
+    }
+    if(validField){ //ha nem ures az elso harom mezo
+    
     /** @type {string} szerzo szovege */
     const szerzoValue = szerzoInp.value //erteke az input mezonek
      /** @type {string} mu szovege */
@@ -99,6 +129,7 @@ jsForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat ho
     valueObj.author = szerzoValue //szerzo tulajdonsag ertekenek beallitasa
     valueObj.title1 = muValue //mu tulajdonsag ertekenek beallitasa
     valueObj.concepts1 = fogalmakValue //fogalmak tulajdonsag ertekenek beallitasa
+    
 
     if(fogalmakMasikValue){ //ha definialva van masik fogalom
         valueObj.concepts2 = fogalmakMasikValue //beallitja a fogalmak2 tulajdonsag erteket
@@ -109,6 +140,7 @@ jsForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat ho
     createTbody(bodyArr, tbodyJs) //kiirja a frissitett tablazatot
     targetSubmit.reset() //gomb megnyomasa utan kiuriti a mezoket 
     
+}
 }) 
 /** @type {HTMLFormElement} a htmles form */
 const htmlForm = document.getElementById("htmlform") //elkeri a htmles formot id alapjan
@@ -126,6 +158,8 @@ htmlForm.addEventListener("submit", function(e){ //esemenykezelo a formnak adat 
     const muMasikInp = targetSubmit.querySelector("#negyedik") //elkeri id alapjan az input mezot
     /** @type {HTMLInputElement} az input */
     const fogalmakMasikInp = targetSubmit.querySelector("#otodik") //elkeri id alapjan az input mezot
+
+
     /** @type {string} szerzo szovege */
     const szerzoValue = szerzoInp.value //erteke az input mezonek
      /** @type {string} mu szovege */
